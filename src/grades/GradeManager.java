@@ -1,6 +1,7 @@
 package grades;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
@@ -78,8 +79,9 @@ public class GradeManager {
 	 *                       in a histogram format
 	 *    exit             : exits the program
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[]  args) {
+	public static void main(String[]  args) throws IOException {
 		GradeManager gm = new GradeManager();
 		
 		BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
