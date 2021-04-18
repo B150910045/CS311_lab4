@@ -32,18 +32,22 @@ public class GradeManager {
 	/**
 	 * Adds grade to this GradeManager.
 	 * @param grade - grade to add to this grad manager
+	 * @throws InvalidGradeException 
 	 */
 	public void addGrade(String grade) throws InvalidGradeException {
 		if (grade.equals("a")) {
-			// TODO: YOUR CODE HERE
+			allGrades.replace(LetterGrade.A, allGrades.get(LetterGrade.A) + 1);
 		} else if (grade.equals("b")) {
-			// TODO: YOUR CODE HERE
+			allGrades.replace(LetterGrade.B, allGrades.get(LetterGrade.B) + 1);
 		} else if (grade.equals("c")) {
-			// TODO: YOUR CODE HERE
-		} 		
-		// TODO: Add more cases in here
-		
-		// If grade doesn't match a valid grade, throw an InvalidGradeException
+			allGrades.replace(LetterGrade.C, allGrades.get(LetterGrade.C) + 1);
+		} else if (grade.equals("d")) {
+			allGrades.replace(LetterGrade.D, allGrades.get(LetterGrade.D) + 1);
+		} else if (grade.equals("f")) {
+			allGrades.replace(LetterGrade.F, allGrades.get(LetterGrade.F) + 1);
+		} else {
+			throw new InvalidGradeException("Invalid grade letter");
+		}
 	}
 
 	/**
@@ -51,8 +55,8 @@ public class GradeManager {
 	 *
 	 */
 	public void printHistogram() {
-		// TODO: YOUR CODE HERE
-		throw new RuntimeException("GradeManger.printHistogram() not yet implemented!");
+		System.out.println("Grades:");
+		System.out.println(getHistString());
 	}
 	
 	/**
@@ -79,24 +83,27 @@ public class GradeManager {
 	 *                       in a histogram format
 	 *    exit             : exits the program
 	 * @param args
-	 * @throws IOException 
+	 * @throws InvalidGradeException 
 	 */
-	public static void main(String[]  args) throws IOException {
+	public static void main(String[]  args) throws InvalidGradeException {
 		GradeManager gm = new GradeManager();
 		
 		BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Starting the grade manager");
 		
 		while (true) {
+			try {
 				String input = cin.readLine();
-				if (input.startsWith("add")) {
-					// TODO: YOUR CODE HERE
+				if (input.startsWith("add ")) {
+					gm.addGrade(Character.toString(input.charAt(input.length() - 1)));
 				} else if (input.equals("print")) {
-					// TODO: YOUR CODE HERE
+					gm.printHistogram();
 				}  else if (input.equals("exit")) {
 					break;
+				} else {
+					System.out.println("wrong command");
 				}
-			
+			}catch(InvalidGradeException | IOException e) {e.printStackTrace();}
 		}
 	}
 
