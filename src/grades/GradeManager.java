@@ -46,7 +46,7 @@ public class GradeManager {
 		} else if (grade <= 59 && grade >= 0) {
 			allGrades.replace(LetterGrade.F, allGrades.get(LetterGrade.F) + 1);
 		} else {
-			throw new InvalidGradeException("Invalid grade");
+			throw new InvalidGradeException("Invalid grade only 0-100");
 		}
 	}
 
@@ -84,8 +84,9 @@ public class GradeManager {
 	 *    exit             : exits the program
 	 * @param args
 	 * @throws InvalidGradeException 
+	 * @throws IOException 
 	 */
-	public static void main(String[]  args) throws InvalidGradeException {
+	public static void main(String[]  args) throws InvalidGradeException, IOException {
 		GradeManager gm = new GradeManager();
 		
 		BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
@@ -99,12 +100,18 @@ public class GradeManager {
 					gm.addGrade(Integer.parseInt(split[1]));
 				} else if (input.equals("print")) {
 					gm.printHistogram();
-				}  else if (input.equals("exit")) {
+				} else if (input.equals("exit")) {
 					break;
 				} else {
 					System.out.println("wrong command");
 				}
-			}catch(InvalidGradeException | IOException e) {e.printStackTrace();}
+			}catch(ArrayIndexOutOfBoundsException e) {
+				e.printStackTrace();
+				System.out.println("Input format: add grade_points");
+			}catch(NumberFormatException e) {
+				e.printStackTrace();
+				System.out.println("Integers only");
+			}
 		}
 	}
 
