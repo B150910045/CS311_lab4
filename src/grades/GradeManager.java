@@ -34,19 +34,19 @@ public class GradeManager {
 	 * @param grade - grade to add to this grad manager
 	 * @throws InvalidGradeException 
 	 */
-	public void addGrade(String grade) throws InvalidGradeException {
-		if (grade.equals("a")) {
+	public void addGrade(int grade) throws InvalidGradeException {
+		if (grade <= 100 && grade >= 90) {
 			allGrades.replace(LetterGrade.A, allGrades.get(LetterGrade.A) + 1);
-		} else if (grade.equals("b")) {
+		} else if (grade <= 89 && grade >= 80) {
 			allGrades.replace(LetterGrade.B, allGrades.get(LetterGrade.B) + 1);
-		} else if (grade.equals("c")) {
+		} else if (grade <= 79 && grade >= 70) {
 			allGrades.replace(LetterGrade.C, allGrades.get(LetterGrade.C) + 1);
-		} else if (grade.equals("d")) {
+		} else if (grade <= 69 && grade >= 60) {
 			allGrades.replace(LetterGrade.D, allGrades.get(LetterGrade.D) + 1);
-		} else if (grade.equals("f")) {
+		} else if (grade <= 59 && grade >= 0) {
 			allGrades.replace(LetterGrade.F, allGrades.get(LetterGrade.F) + 1);
 		} else {
-			throw new InvalidGradeException("Invalid grade letter");
+			throw new InvalidGradeException("Invalid grade");
 		}
 	}
 
@@ -94,8 +94,9 @@ public class GradeManager {
 		while (true) {
 			try {
 				String input = cin.readLine();
-				if (input.startsWith("add ")) {
-					gm.addGrade(Character.toString(input.charAt(input.length() - 1)));
+				String[] split = input.split(" ");
+				if (input.startsWith("add")) {
+					gm.addGrade(Integer.parseInt(split[1]));
 				} else if (input.equals("print")) {
 					gm.printHistogram();
 				}  else if (input.equals("exit")) {
